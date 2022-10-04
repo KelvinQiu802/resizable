@@ -17,8 +17,6 @@ function App() {
         <Resizable
           defaultStyle={defaultStyle}
           setDefaultStyle={setDefaultStyle}
-          active={active}
-          setActive={setActive}
         >
           <Box />
         </Resizable>

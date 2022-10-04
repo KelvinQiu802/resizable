@@ -1,12 +1,7 @@
 import React from 'react';
+import direction from '../direction';
 
-function Resizable({
-  children,
-  defaultStyle,
-  setDefaultStyle,
-  active,
-  setActive,
-}) {
+function Resizable({ children, defaultStyle, setDefaultStyle }) {
   const elem = React.useRef();
   const points = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb'];
 
@@ -42,6 +37,7 @@ function Resizable({
       top: `${newTop}px`,
       marginLeft: hasR ? '-4px' : '-3px',
       marginTop: '-3px',
+      cursor: `${direction[point]}-resize`,
       zIndex: 100,
     };
     return style;
