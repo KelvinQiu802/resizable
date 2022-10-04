@@ -5,6 +5,14 @@ import { useDrag } from 'react-dnd';
 function Resizable({ children, defaultStyle, setDefaultStyle }) {
   const points = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb'];
 
+  let boxHeight, boxWidth;
+
+  React.useEffect(() => {
+    const box = document.querySelector('.droppable');
+    boxHeight = box.offsetHeight;
+    boxWidth = box.offsetWidth;
+  });
+
   const getPointStyle = (point) => {
     const { width, height } = defaultStyle;
 
@@ -115,11 +123,18 @@ function Resizable({ children, defaultStyle, setDefaultStyle }) {
       const curY = e.clientY;
       const finalTop = startTop + curY - startY;
       const finalLeft = startLeft + curX - startX;
-      setDefaultStyle((prev) => ({
-        ...prev,
-        top: finalTop,
-        left: finalLeft,
-      }));
+      if (
+        0 <= finalTop &&
+        finalTop <= boxHeight - pos.height &&
+        0 <= finalLeft &&
+        finalLeft <= boxWidth - pos.width
+      ) {
+        setDefaultStyle((prev) => ({
+          ...prev,
+          top: finalTop,
+          left: finalLeft,
+        }));
+      }
     };
 
     const handleUp = (e) => {
