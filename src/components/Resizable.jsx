@@ -2,7 +2,6 @@ import React from 'react';
 import direction from '../direction';
 
 function Resizable({ children, defaultStyle, setDefaultStyle }) {
-  const elem = React.useRef();
   const points = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb'];
 
   const getPointStyle = (point) => {
@@ -100,7 +99,7 @@ function Resizable({ children, defaultStyle, setDefaultStyle }) {
   const handleClick = () => {};
 
   return (
-    <div ref={elem} style={containerStyle} onClick={handleClick}>
+    <div style={containerStyle} onClick={handleClick}>
       {points.map((point) => (
         <div
           key={point}
