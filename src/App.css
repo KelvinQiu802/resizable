@@ -1,0 +1,17 @@
+.box {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(255, 166, 0, 0.387);
+}
+
+.point {
+  width: 5px;
+  height: 5px;
+  background-color: skyblue;
+}
+
+.container {
+  position: relative;
+  top: 100px;
+  left: 100px;
+}
