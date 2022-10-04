@@ -7,6 +7,8 @@ function App() {
   const [defaultStyle, setDefaultStyle] = React.useState({
     width: 100,
     height: 100,
+    top: 500,
+    left: 500,
   });
 
   return (
@@ -15,6 +17,8 @@ function App() {
         <Resizable
           defaultStyle={defaultStyle}
           setDefaultStyle={setDefaultStyle}
+          active={active}
+          setActive={setActive}
         >
           <Box />
         </Resizable>
