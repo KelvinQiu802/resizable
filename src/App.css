@@ -10,6 +10,16 @@
   background-color: skyblue;
 }
 
-.container {
+.droppable {
   position: relative;
+  width: 80vw;
+  height: 80vh;
+  border: 5px solid greenyellow;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

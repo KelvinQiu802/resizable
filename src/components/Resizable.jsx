@@ -1,5 +1,6 @@
 import React from 'react';
 import direction from '../direction';
+import { useDrag } from 'react-dnd';
 
 function Resizable({ children, defaultStyle, setDefaultStyle }) {
   const points = ['t', 'r', 'b', 'l', 'lt', 'rt', 'lb', 'rb'];
@@ -79,13 +80,16 @@ function Resizable({ children, defaultStyle, setDefaultStyle }) {
 
     const handleUp = () => {
       // 清除事件
+      console.log(1);
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleUp);
     };
 
     // 添加事件
-    document.addEventListener('mousemove', handleMove);
-    document.addEventListener('mouseup', handleUp);
+    if (e.currentTarget.classList.value.includes('point')) {
+      document.addEventListener('mousemove', handleMove);
+      document.addEventListener('mouseup', handleUp);
+    }
   };
 
   const containerStyle = {
@@ -96,10 +100,40 @@ function Resizable({ children, defaultStyle, setDefaultStyle }) {
     left: `${defaultStyle.left}px`,
   };
 
-  const handleClick = () => {};
+  const handleDrag = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const pos = { ...defaultStyle };
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startTop = pos.top;
+    const startLeft = pos.left;
+
+    const handleMove = (e) => {
+      const curX = e.clientX;
+      const curY = e.clientY;
+      const finalTop = startTop + curY - startY;
+      const finalLeft = startLeft + curX - startX;
+      setDefaultStyle((prev) => ({
+        ...prev,
+        top: finalTop,
+        left: finalLeft,
+      }));
+    };
+
+    const handleUp = (e) => {
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleUp);
+    };
+
+    // 添加事件
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleUp);
+  };
 
   return (
-    <div style={containerStyle} onClick={handleClick}>
+    <div style={containerStyle} onMouseDown={(e) => handleDrag(e)}>
       {points.map((point) => (
         <div
           key={point}
